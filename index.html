@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CHANAX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive-styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header con perfil y nombre -->
+        <header class="top-menu">
+            <div class="profile-container">
+                <img id="profileImg" src="default-profile.png" alt="Profile" class="profile-img" onclick="selectProfileImage()">
+                <input type="file" id="profileImageInput" style="display: none;" onchange="previewProfileImage()">
+            </div>
+            <input type="text" id="profileName" placeholder="Nombre del Perfil" oninput="updateProfileName()">
+        </header>
+
+        <!-- Main 1: Chat -->
+        <div id="main1" class="main show">
+            <div class="chat">
+                <div class="messages"></div>
+                <div class="chat-input">
+                    <input id="chatInput" type="text" placeholder="Escribe un mensaje">
+                    <button id="attachImageButton" onclick="document.getElementById('chatImageInput').click()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3 3.5-4.5 4.5 6H5l3.5-4.5z"></path></svg>
+                    </button>
+                    <button id="attachFileButton" onclick="document.getElementById('chatFileInput').click()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                    </button>
+                    <button id="sendMessageButton" onclick="sendMessage()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                    </button>
+                    <input type="file" id="chatImageInput" style="display: none;" accept="image/*">
+                    <input type="file" id="chatFileInput" style="display: none;" accept=".pdf,.doc,.docx">
+                </div>
+            </div>
+        </div>
+
+        <!-- Main 2: Chanax -->
+        <div id="main2" class="main">
+            <button id="chanaxButton" onclick="window.open('https://chanax2.odoo.com', '_blank')">Chanax</button>
+        </div>
+
+        <!-- Main 3: Crear Alarma -->
+        <div id="main3" class="main">
+            <h2>Crear Alarma</h2>
+            <div class="alarm-settings">
+                <div class="alarm-description">
+                    <label for="alarmDescription">Descripción:</label>
+                    <input type="text" id="alarmDescription" maxlength="60" placeholder="Descripción de la alarma">
+                </div>
+                <input type="time" id="alarmTime">
+                <div class="alarm-days">
+                    <label>Repetir en:</label>
+                    <select id="alarmDays" multiple>
+                        <option value="monday">Lunes</option>
+                        <option value="tuesday">Martes</option>
+                        <option value="wednesday">Miércoles</option>
+                        <option value="thursday">Jueves</option>
+                        <option value="friday">Viernes</option>
+                        <option value="saturday">Sábado</option>
+                        <option value="sunday">Domingo</option>
+                    </select>
+                </div>
+                <div class="alarm-repeat">
+                    <label for="repeatInterval">Repetir cada:</label>
+                    <input type="number" id="repeatInterval" min="1">
+                    <select id="repeatUnit">
+                        <option value="minutes">Minutos</option>
+                        <option value="hours">Horas</option>
+                        <option value="days">Días</option>
+                    </select>
+                </div>
+                <button onclick="createAlarm()">Crear Alarma</button>
+                <div id="alarmList" class="alarm-list"></div>
+            </div>
+        </div>
+
+        <!-- Main 4: Enviar Notificaciones -->
+        <div id="main4" class="main">
+            <button onclick="toggleAppNotifications()">Activar/Desactivar Notificaciones de App</button>
+            <button onclick="sendEmail()">Enviar Correo</button>
+            <button onclick="sendSMS()">Enviar SMS</button>
+        </div>
+
+        <!-- Main 5: Soporte Técnico y Términos -->
+        <div id="main5" class="main">
+            <button onclick="contactSupport()">Contactar Soporte Técnico</button>
+            <button onclick="viewTerms()">Ver Términos y Condiciones</button>
+            <hr>
+            <button onclick="shareAlarmHistory()">Compartir Historial de Alarmas</button>
+            <button id="toggleAlarmHistory">Mostrar/Ocultar Historial de Alarmas</button>
+            <div id="alarmHistory" class="hidden"></div>
+        </div>
+
+        <!-- Footer -->
+        <nav class="footer">
+            <button onclick="showMain(1)" class="footer-button">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </button>
+            <button onclick="showMain(2)" class="footer-button">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+            <button onclick="showMain(3)" class="footer-button">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </button>
+            <button onclick="showMain(4)" class="footer-button">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </button>
+            <button onclick="showMain(5)" class="footer-button">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 3.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09A1.65 1.65 0 0 0 15.4 3a1.65 1.65 0 0 0 1.82.33l.06.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82"></path></svg>
+            </button>
+        </nav>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

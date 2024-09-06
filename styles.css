@@ -1,0 +1,344 @@
+/* Reseteo de márgenes y rellenos, y ajuste del modelo de caja */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Estilos del menú superior */
+.top-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-container {
+    position: absolute;
+    left: 16px;
+    width: 60px;
+    height: 60px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+#profileName {
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    outline: none;
+    text-align: center;
+}
+
+/* Estilos generales para las secciones principales */
+.main {
+    display: none;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #ffffff;
+}
+
+.main.show {
+    display: block;
+}/* Estilos para la sección de chat */
+.chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.message {
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.message.right {
+    background-color: #DCF8C6;
+    align-self: flex-end;
+}
+
+.message.right button {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.message.right button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilos para la entrada de chat */
+.chat-input {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 24px;
+    padding: 8px;
+}
+
+.chat-input input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 8px;
+    outline: none;
+}
+
+.chat-input button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    stroke: #555;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}/* Estilos para el botón Chanax */
+#chanaxButton {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#chanaxButton:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Estilos para la sección de alarmas */
+.alarm-settings {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.alarm-description, .alarm-days, .alarm-repeat {
+    margin-bottom: 16px;
+}
+
+.alarm-description input, .alarm-days select, input[type="time"], .alarm-repeat input, .alarm-repeat select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+/* Estilos para los botones */
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.delete {
+    background-color: #ff4d4d;
+}
+
+button.delete:hover {
+    background-color: #ff3333;
+}
+
+button.edit {
+    background-color: #4CAF50;
+}
+
+button.edit:hover {
+    background-color: #45a049;
+}/* Estilos para el pie de página */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.footer-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.footer-button .icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Estilos para las notificaciones emergentes */
+.notification-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.notification-popup button {
+    margin-top: 16px;
+}
+
+.notification-popup button.green {
+    background-color: #90EE90;
+}
+
+.notification-popup button.red {
+    background-color: #FF6961;
+}
+
+/* Estilos para el historial de alarmas */
+.hidden {
+    display: none;
+}
+
+.alarm-history {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+}
+
+.alarm-history.completada {
+    background-color: #90EE90;
+}
+
+.alarm-history.perdida {
+    background-color: #FFB6C1;
+}
+
+.alarm-history button {
+    border-radius: 50%;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#alarmHistory {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Estilos para el diálogo de confirmación */
+.confirmation-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.confirmation-dialog button.yes {
+    background-color: #90EE90;
+}
+
+.confirmation-dialog button.no {
+    background-color: #FF6961;
+}
+
+/* Estilo para las líneas horizontales */
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* Indicadores de estado de alarma */
+.alarm-status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.alarm-status-indicator.completed {
+    background-color: #90EE90;
+}
+
+.alarm-status-indicator.missed {
+    background-color: #FF6961;
+}
